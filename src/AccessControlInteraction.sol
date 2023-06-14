@@ -22,6 +22,7 @@ contract AccessControlInteraction is AccessControl {
     struct StudentInfo{
         string name;
         string email;
+        uint256 grade;
     }
 
     mapping(address => StudentInfo) public students;
@@ -33,6 +34,6 @@ contract AccessControlInteraction is AccessControl {
     }
 
     function gradeStudent(address _studentAddress, uint _grade) external {
-        
+        students[_studentAddress].grade = _grade;
     }
 }
