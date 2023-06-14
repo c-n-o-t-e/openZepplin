@@ -13,6 +13,7 @@ import {AccessControl} from "openzeppelin-contracts/contracts/access/AccessContr
 
 contract AccessControlInteraction is AccessControl {
 
+    bytes32 public constant GRADE_OFFICER = keccak256("GRADE_OFFICER");
     bytes32 public constant ADMISSION_OFFICER = keccak256("ADMISSION_OFFICER");
 
     constructor() {
@@ -33,7 +34,7 @@ contract AccessControlInteraction is AccessControl {
         student.email = _email;
     }
 
-    function gradeStudent(address _studentAddress, uint _grade) external {
+    function gradeStudent(address _studentAddress, uint _grade) external onlyRole(GRADE_OFFICER) {
         students[_studentAddress].grade = _grade;
     }
 }
