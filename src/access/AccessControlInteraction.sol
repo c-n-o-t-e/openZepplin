@@ -20,7 +20,7 @@ contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
         _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
     }
 
-    struct StudentInfo{
+    struct StudentInfo {
         string name;
         string email;
         uint256 grade;
@@ -29,7 +29,11 @@ contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
     mapping(address => StudentInfo) public students;
 
     /// @inheritdoc IAccessControlInteraction
-    function admitStudent(string memory _name, string memory _email, address _studentAddress) external onlyRole(ADMISSION_OFFICER) {
+    function admitStudent(
+        string memory _name,
+        string memory _email,
+        address _studentAddress
+    ) external onlyRole(ADMISSION_OFFICER) {
         StudentInfo storage student = students[_studentAddress];
         student.name = _name;
         student.email = _email;
@@ -37,7 +41,10 @@ contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
     }
 
     /// @inheritdoc IAccessControlInteraction
-    function gradeStudent(address _studentAddress, uint _grade) external onlyRole(GRADE_OFFICER) {
+    function gradeStudent(
+        address _studentAddress,
+        uint _grade
+    ) external onlyRole(GRADE_OFFICER) {
         students[_studentAddress].grade = _grade;
         emit StudentGrade(_studentAddress, _grade);
     }

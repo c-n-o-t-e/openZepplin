@@ -14,7 +14,11 @@ interface IAccessControlInteraction {
      */
     event StudentGrade(address _studentAddress, uint256 _grade);
 
-    function admitStudent(string memory _name, string memory _email, address _studentAddress) external;
+    function admitStudent(
+        string memory _name,
+        string memory _email,
+        address _studentAddress
+    ) external;
 
     function gradeStudent(address _studentAddress, uint _grade) external;
 }

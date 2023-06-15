@@ -12,42 +12,64 @@ contract AccessControlInteractionTest is Test {
 
     function setUp() public {
         accessControlInteraction = new AccessControlInteraction();
-        accessControlInteraction.grantRole(accessControlInteraction.GRADE_OFFICER(), address(1));
-        accessControlInteraction.grantRole(accessControlInteraction.ADMISSION_OFFICER(), address(2));
+
+        accessControlInteraction.grantRole(
+            accessControlInteraction.GRADE_OFFICER(),
+            address(1)
+        );
+
+        accessControlInteraction.grantRole(
+            accessControlInteraction.ADMISSION_OFFICER(),
+            address(2)
+        );
     }
 
     function testFailToAdmitStudent() public {
-        accessControlInteraction.admitStudent('Henry', 'henry@gmail.com', address(10));
+        accessControlInteraction.admitStudent(
+            "Henry",
+            "henry@gmail.com",
+            address(10)
+        );
     }
 
     function testFailToGradeStudent() public {
         accessControlInteraction.gradeStudent(address(10), 20);
     }
-    
+
     function testAdmitStudent() public {
         vm.prank(address(2));
 
-        accessControlInteraction.admitStudent('Henry', 'henry@gmail.com', address(10));
-        (string memory name, string memory email, ) = accessControlInteraction.students(address(10));
-        
-        assertEq(name, 'Henry');
-        assertEq(email, 'henry@gmail.com');
+        accessControlInteraction.admitStudent(
+            "Henry",
+            "henry@gmail.com",
+            address(10)
+        );
+
+        (string memory name, string memory email, ) = accessControlInteraction
+            .students(address(10));
+
+        assertEq(name, "Henry");
+        assertEq(email, "henry@gmail.com");
     }
 
     function testGradeStudent() public {
         vm.prank(address(1));
         accessControlInteraction.gradeStudent(address(10), 20);
 
-        (,, uint256 grade ) = accessControlInteraction.students(address(10));
+        (, , uint256 grade) = accessControlInteraction.students(address(10));
         assertEq(grade, 20);
     }
 
     function testEmitNewStudentEvent() public {
         vm.prank(address(2));
         vm.expectEmit(false, false, false, true);
-
-        emit NewStudent('Tarik', 'tarik@gmail.com', address(11));
-        accessControlInteraction.admitStudent('Tarik', 'tarik@gmail.com', address(11));
+        emit NewStudent("Tarik", "tarik@gmail.com", address(11));
+        
+        accessControlInteraction.admitStudent(
+            "Tarik",
+            "tarik@gmail.com",
+            address(11)
+        );
     }
 
     function testEmitStudentGradeEvent() public {
