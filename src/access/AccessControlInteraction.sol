@@ -28,6 +28,7 @@ contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
 
     mapping(address => StudentInfo) public students;
 
+    /// @inheritdoc IAccessControlInteraction
     function admitStudent(string memory _name, string memory _email) external onlyRole(ADMISSION_OFFICER) {
         StudentInfo storage student = students[_msgSender()];
         student.name = _name;
@@ -35,6 +36,7 @@ contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
         emit NewStudent(_name, _email);
     }
 
+    /// @inheritdoc IAccessControlInteraction
     function gradeStudent(address _studentAddress, uint _grade) external onlyRole(GRADE_OFFICER) {
         students[_studentAddress].grade = _grade;
         emit StudentGrade(_studentAddress, _grade);
