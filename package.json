@@ -1,0 +1,19 @@
+{
+  "name": "openZepplin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "format": "prettier --write 'src/**/*.sol' 'test/**/*.sol'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prettier-plugin-solidity": "^1.1.3"
+  }
+}
