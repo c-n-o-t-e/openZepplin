@@ -9,13 +9,10 @@
 
 pragma solidity >=0.8.19;
 
+import {IAccessControlInteraction} from "./Interfaces/IAccessControlInteraction.sol";
 import {AccessControl} from "openzeppelin-contracts/contracts/access/AccessControl.sol";
 
-
-contract AccessControlInteraction is AccessControl {
-    event NewStudent(string _name, string _email);
-    event StudentGrade(uint256 _grade);
-
+contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
     bytes32 public constant GRADE_OFFICER = keccak256("GRADE_OFFICER");
     bytes32 public constant ADMISSION_OFFICER = keccak256("ADMISSION_OFFICER");
 
@@ -40,6 +37,6 @@ contract AccessControlInteraction is AccessControl {
 
     function gradeStudent(address _studentAddress, uint _grade) external onlyRole(GRADE_OFFICER) {
         students[_studentAddress].grade = _grade;
-        emit StudentGrade(_grade);
+        emit StudentGrade(_studentAddress, _grade);
     }
 }
