@@ -33,7 +33,7 @@ contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
         StudentInfo storage student = students[_studentAddress];
         student.name = _name;
         student.email = _email;
-        emit NewStudent(_name, _email);
+        emit NewStudent(_name, _email, _studentAddress);
     }
 
     /// @inheritdoc IAccessControlInteraction

@@ -7,7 +7,7 @@ interface IAccessControlInteraction {
     /**
      * @dev Emits when a new student is admitted.
      */
-    event NewStudent(string _name, string _email);
+    event NewStudent(string _name, string _email, address _studentAddress);
 
     /**
      * @dev Emits when a student gets graded.
