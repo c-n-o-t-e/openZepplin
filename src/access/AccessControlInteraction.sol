@@ -29,8 +29,8 @@ contract AccessControlInteraction is AccessControl, IAccessControlInteraction {
     mapping(address => StudentInfo) public students;
 
     /// @inheritdoc IAccessControlInteraction
-    function admitStudent(string memory _name, string memory _email) external onlyRole(ADMISSION_OFFICER) {
-        StudentInfo storage student = students[_msgSender()];
+    function admitStudent(string memory _name, string memory _email, address _studentAddress) external onlyRole(ADMISSION_OFFICER) {
+        StudentInfo storage student = students[_studentAddress];
         student.name = _name;
         student.email = _email;
         emit NewStudent(_name, _email);
